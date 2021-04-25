@@ -62,9 +62,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-{{--                             @if (Route::has('register'))
+{{--                             @if (Route::has('registerSuper'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('registerSuper') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif --}}
                         @else
@@ -97,12 +97,12 @@
                 <div class="bg-light border-right" id="sidebar-wrapper">
                     <div class="sidebar-heading">Menú </div>
                     <div class="list-group list-group-flush">
-                        <a href="/categoria" class="list-group-item list-group-item-action bg-light">Categoría</a>
+                        <!-- <a href="/categoria" class="list-group-item list-group-item-action bg-light">Categoría</a>
                         <a href="/subcategoria" class="list-group-item list-group-item-action bg-light">Subcategorías</a>
                         <a href="/variable" class="list-group-item list-group-item-action bg-light">Variables</a>
-                        <a href="/propuesta" class="list-group-item list-group-item-action bg-light">Propuestas</a>
-                        <a href="{{ route('register') }}" class="list-group-item list-group-item-action bg-light">Crear Usuario</a>
-                        <!-- <a href="/hospital/create" class="list-group-item list-group-item-action bg-light">Crear Hospital</a> -->
+                        <a href="/propuesta" class="list-group-item list-group-item-action bg-light">Propuestas</a> -->
+                        <a href="{{ route('registerSuper') }}" class="list-group-item list-group-item-action bg-light">Crear Usuario</a>
+                        <a href="/hospital/create" class="list-group-item list-group-item-action bg-light">Crear Institución de Salud</a>
                     </div>
                 </div>
                 <div id="page-content-wrapper-admin">

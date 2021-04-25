@@ -33,6 +33,11 @@ class AuthRouteMethods
                     $this->post('register', 'Auth\RegisterController@register');
                 }
 
+                if ($options['register'] ?? true) {
+                    $this->get('registerSuper', 'Auth\RegisterController@showSuperRegistrationForm')->name('registerSuper');
+                    $this->post('register', 'Auth\RegisterController@register');
+                }
+
                 // Password Reset Routes...
                 if ($options['reset'] ?? true) {
                     $this->resetPassword();

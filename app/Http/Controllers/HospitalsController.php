@@ -20,8 +20,17 @@ class HospitalsController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
-		return view('hospital.create');
+	public function create(Request $request) {
+      	if ($request->user()->authorizeRoles('user')) {
+			//dd('MAL1');
+			return view('homeUser');
+		}
+		if ($request->user()->authorizeRoles('admin')) {
+			return view('homeAdmin');
+		}
+        if ($request->user()->authorizeRoles('superadmin')) {
+			return view('hospital.create');
+		}
 	}
 
 	/**

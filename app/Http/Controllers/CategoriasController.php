@@ -11,9 +11,17 @@ class CategoriasController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
+	public function index(Request $request) {
 		$categorias = Categoria::orderBy('id', 'DESC')->paginate(3);
-		return view('categoria.index', compact('categorias'));
+        if ($request->user()->authorizeRoles('user')) {
+			return view('homeUser');
+		}
+		if ($request->user()->authorizeRoles('admin')) {
+			return view('categoria.index', compact('categorias'));
+		}
+        if ($request->user()->authorizeRoles('superadmin')) {
+			return view("homeSuperadmin");
+		}
 	}
 
 	/**

@@ -11,9 +11,18 @@ class PropuestasController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
+	public function index(Request $request) {
 		$propuestas = Propuesta::orderBy('id', 'DESC')->get();
-		return view('propuesta.index', compact('propuestas'));
+             if ($request->user()->authorizeRoles('user')) {
+			return view('homeUser');
+		}
+		if ($request->user()->authorizeRoles('admin')) {
+			return view('propuesta.index', compact('propuestas'));
+		}
+        if ($request->user()->authorizeRoles('superadmin')) {
+			return view("homeSuperadmin");
+		}
+
 	}
 
 	/**

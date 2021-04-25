@@ -32,6 +32,9 @@ class HomeController extends Controller {
 		if ($request->user()->authorizeRoles('admin')) {
 			return view('homeAdmin');
 		}
+        if ($request->user()->authorizeRoles('superadmin')) {
+			return view('homeSuperadmin');
+		}
 		//dd('MAL');
 	}
 	public function someAdminStuff(Request $request) {
