@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="reparaciones">Número de mantenimientos correctivos*</label>
+                            <label for="reparaciones">Mantenimientos correctivos último año*</label>
                             <input type="text" class="form-control" id="nro_reparaciones" placeholder="" name="nro_reparaciones" required>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -82,10 +82,9 @@
                             <input type="text" class="form-control col-md-6" id="años_reparaciones" placeholder="" name="años_reparaciones" required>
                         </div>
 
-
                         <div class="col-md-12 mb-3">
-                            <label for="años_rep">Año de fabricación del equipo</label>
-                            <input type="text" class="form-control col-md-6" id="años_reparaciones" placeholder="" name="años_reparaciones" required>
+                            <label for="años_rep">Edad del equipo (años)*</label>
+                            <input type="text" class="form-control col-md-6" id="edad" placeholder="" name="edad" required>
                         </div>
 
 

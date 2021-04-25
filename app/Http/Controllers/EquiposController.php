@@ -31,12 +31,12 @@ class EquiposController extends Controller {
 	 */
 	public function store(Request $request) {
 		$form = request()->all();
-		//dd($form);
+		// dd($form);
 		//dd(auth()->user()->hospital->id);
-		$this->validate(request(), [
+/* 		$this->validate(request(), [
 
 			'nombre' => 'required',
-			'edad' => 'required',
+			'edad_del_equipo' => 'required',
 			'vida_util' => 'required',
 			'costo_adquisicion' => 'required',
 			'costo_nuevo' => 'required',
@@ -46,16 +46,17 @@ class EquiposController extends Controller {
 			'nro_reparaciones' => 'required',
 			'años_reparaciones' => 'required',
 
-		]);
+		]); */
 		//dd($request);
 		//$form = request()->all();
 		//dd($form);
 		$equipo = new Equipo($form);
+        //dd($equipo);
 		$equipo->hospital_id = auth()->user()->hospital->id;
-		//dd($equipo);
 		$equipo->save();
 		//dd($equipo->id);
 		$request->session()->flash('alert-success', 'Equipo Guardado');
+
 		return redirect('/showEquipos');
 	}
 	public function showEquipo($id) {
@@ -95,118 +96,86 @@ class EquiposController extends Controller {
 	}
 
 	public function createTecnicos(Equipo $equipo) {
-		//dd($equipo);
+
 		$variables = \App\Diccionario_variable::categorias(0);
-		//dd($variables);
-		//$variables['equipo'] = $equipo->id;
-		unset($variables[3]);
-		unset($variables[4]);
+		unset($variables[2]);
+		unset($variables[5]);
 		unset($variables[6]);
-		//dd($variables);
+        $variables = (array_values($variables));
 		$opciones = array();
 
-		//dd($equipoVar[0]->pivot->valor);
 		foreach ($variables as $variable) {
-			//dd($variables);
 			$opc = $variable['variable']->diccionario_variables;
 			$opc->variable = $variable['variable']['nombre'];
+            $opc->id = $variable['variable']['id'];
+            $opc->info = $variable['variable']['informacion'];
 			array_push($opciones, $opc);
 		}
-		// $x = $variables[14]['variable'];
-		// $y = $x->diccionario_variables;
-		// dd($y);
+        $c = collect($opciones);
+        $sorted = $c->sortBy('id');
+        $sorted = $sorted->values();
+        $opciones = array();
+        foreach ($sorted as $variable) {
+            array_push($opciones, $variable);
+        }
 		$equipoVar = 0;
 		array_push($opciones, $equipo);
-		if ($equipo->tecnicos) {
+
+        if ($equipo->tecnicos) {
 			$equipoVar = $equipo->variable;
-			//dd($equipoVar);
 			$x = 0;
 			foreach ($equipoVar as $variable) {
-				//dd($variable->subcategoria_id);
 				if (!in_array($variable->subcategoria_id, [1, 2, 3])) {
 					unset($equipoVar[$x]);
 				}
 				$x = $x + 1;
 			}
-			unset($equipoVar[0]);
+            // dd($equipoVar);
 			unset($equipoVar[1]);
-			unset($equipoVar[2]);
-			$x = 0;
-			foreach ($equipoVar as $variable) {
-				$equipoVar[$x] = $variable;
-				$x = $x + 1;
-			}
-			$temp = $equipoVar[0];
-			$equipoVar[0] = $equipoVar[1];
-			$equipoVar[1] = $temp;
-
-			$temp = $equipoVar[1];
-			$equipoVar[1] = $equipoVar[2];
-			$equipoVar[2] = $temp;
-
-			$temp = $equipoVar[2];
-			$equipoVar[2] = $equipoVar[4];
-			$equipoVar[4] = $temp;
-
-			$temp = $equipoVar[3];
-			$equipoVar[3] = $equipoVar[4];
-			$equipoVar[4] = $temp;
-
+			unset($equipoVar[4]);
+			unset($equipoVar[5]);
+            $equipoVar = ($equipoVar->values());
 		}
 		array_push($opciones, $equipoVar);
-		//dd($opciones);
-		//array_pop($opciones);
-
-		return view('criterios/tecnicos')->with('opciones', $opciones);
+		//  dd($opciones);
+        return view('criterios/tecnicos')->with('opciones', $opciones);
 	}
 
 	public function createClinicos(Equipo $equipo) {
-		//dd($equipo);
+
 		$variables = \App\Diccionario_variable::categorias(1);
-		//dd($variables);
-		//$variables['equipo'] = $equipo->id;
+	    $variables = (array_values($variables));
 		$opciones = array();
 
-		//dd($equipoVar[0]->pivot->valor);
 		foreach ($variables as $variable) {
-			//dd($variables);
-			$opc = $variable['variable']->diccionario_variables;
+		    $opc = $variable['variable']->diccionario_variables;
 			$opc->variable = $variable['variable']['nombre'];
+            $opc->id = $variable['variable']['id'];
+            $opc->info = $variable['variable']['informacion'];
 			array_push($opciones, $opc);
 		}
-
-		//dd($opciones);
+        $c = collect($opciones);
+        $sorted = $c->sortBy('id');
+        $sorted = $sorted->values();
+        $opciones = array();
+        foreach ($sorted as $variable) {
+            array_push($opciones, $variable);
+        }
 		$equipoVar = 0;
 		array_push($opciones, $equipo);
-		if ($equipo->clinicos) {
+
+        if ($equipo->clinicos) {
 			$equipoVar = $equipo->variable;
-			//dd($equipoVar);
 			$x = 0;
 			foreach ($equipoVar as $variable) {
-				//dd($variable->subcategoria_id);
 				if (!in_array($variable->subcategoria_id, [4, 5])) {
 					unset($equipoVar[$x]);
 				}
 				$x = $x + 1;
 			}
-			//$keys = array_keys($equipoVar);
-			$x = 0;
-			foreach ($equipoVar as $variable) {
-				$equipoVar[$x] = $variable;
-				$x = $x + 1;
-			}
-			$temp = $equipoVar[0];
-			$equipoVar[0] = $equipoVar[1];
-			$equipoVar[1] = $temp;
-			$temp = $equipoVar[1];
-			$equipoVar[1] = $equipoVar[2];
-			$equipoVar[2] = $temp;
-			//dd($equipoVar[0]->pivot->valor);
-
+            $equipoVar = ($equipoVar->values());
 		}
 		array_push($opciones, $equipoVar);
-		//dd($opciones);
-		//array_pop($opciones);
 		return view('criterios/clinicos')->with('opciones', $opciones);
 	}
 
@@ -229,9 +198,11 @@ class EquiposController extends Controller {
 		//dd($form);
 
 		$equipo = Equipo::find($form['equipo']);
+        //dd($equipo);
 		$vida = $equipo['edad'] / $equipo['vida_util'];
 		$eficiencia = ($equipo['tiempo_operacion'] - $equipo['tiempo_parado']) * 100 / $equipo['tiempo_operacion'];
 		$tasa_falla = $equipo['nro_reparaciones'] / $equipo['años_reparaciones'];
+
 		//dd($vida);
 		if ($vida == 0) {
 			$vida = 0;
@@ -266,40 +237,53 @@ class EquiposController extends Controller {
 		} else {
 			$tasa_falla = 4;
 		}
-		//dd($tasa_falla);
+		// dd($form);
 		if (!$equipo->tecnicos) {
 			$equipo->variable()->attach([
-				14 => ['valor' => $form['Estado_de_Tecnología']],
-				21 => ['valor' => $form['Soporte_Técnico_(Años_Restantes)']],
-				15 => ['valor' => $form['Suministro_de_Repuestos']],
-				3 => ['valor' => $vida],
-				4 => ['valor' => $eficiencia],
-				6 => ['valor' => $tasa_falla],
+                1 => ['valor' => $form['Soporte_técnico_activo']],
+                2 => ['valor' => $eficiencia],
+                3 => ['valor' => $form['Porcentaje_de_operabilidad']],
+				4 => ['valor' => $form['Condición_física_del_equipo']],
+                5 => ['valor' => $vida],
+                6 => ['valor' => $tasa_falla],
+
+                8 => ['valor' => $form['Mantenimientos_Preventivos_(último_año)']],
+                14 => ['valor' => $form['Estado_de_Tecnología']],
+				15 => ['valor' => $form['Disponibilidad_de_Repuestos']],
 				17 => ['valor' => $form['Mediciones']],
-				8 => ['valor' => $form['Mantenimientos_Preventivos_(Anual)']],
+				21 => ['valor' => $form['Disponibilidad_de_equipos_de_respaldo']],
+
+
 			]
 			);
 		} else {
-			$equipo->variable()->updateExistingPivot(14, ['valor' => $form['Estado_de_Tecnología']]);
-			$equipo->variable()->updateExistingPivot(21, ['valor' => $form['Soporte_Técnico_(Años_Restantes)']]);
-			$equipo->variable()->updateExistingPivot(15, ['valor' => $form['Suministro_de_Repuestos']]);
-			$equipo->variable()->updateExistingPivot(3, ['valor' => $vida]);
-			$equipo->variable()->updateExistingPivot(4, ['valor' => $eficiencia]);
+            $equipo->variable()->updateExistingPivot(1, ['valor' => $form['Soporte_técnico_activo']]);
+            $equipo->variable()->updateExistingPivot(2, ['valor' =>  $eficiencia]);
+            $equipo->variable()->updateExistingPivot(3, ['valor' => $form['Porcentaje_de_operabilidad']]);
+			$equipo->variable()->updateExistingPivot(4, ['valor' => $form['Condición_física_del_equipo']]);
+            $equipo->variable()->updateExistingPivot(5, ['valor' => $vida]);
 			$equipo->variable()->updateExistingPivot(6, ['valor' => $tasa_falla]);
+
+            $equipo->variable()->updateExistingPivot(8, ['valor' => $form['Mantenimientos_Preventivos_(último_año)']]);
+			$equipo->variable()->updateExistingPivot(14, ['valor' => $form['Estado_de_Tecnología']]);
+            $equipo->variable()->updateExistingPivot(15, ['valor' => $form['Disponibilidad_de_Repuestos']]);
 			$equipo->variable()->updateExistingPivot(17, ['valor' => $form['Mediciones']]);
-			$equipo->variable()->updateExistingPivot(8, ['valor' => $form['Mantenimientos_Preventivos_(Anual)']]);
+			$equipo->variable()->updateExistingPivot(21, ['valor' => $form['Disponibilidad_de_equipos_de_respaldo']]);
+
+
 
 		}
 		$equipo->tecnicos = 1;
-
+        //dd($equipo);
 		$equipo->save();
 		return redirect('/showEquipos');
 	}
 
 	public function storeClinicos(Request $request) {
 		$form = request()->all();
-		//dd($form);
-		//dd(auth()->user()->hospital->id);
+
+		//  dd($form);
+		// dd(auth()->user()->hospital->id);
 		// $this->validate(request(), [
 		// 	'aceptabilidad_clinica' => 'required', #
 		// 	'funcion_clinica' => 'required', #
@@ -309,9 +293,12 @@ class EquiposController extends Controller {
 
 		//dd($request);
 		//$form = request()->all();
-		//dd($form);
+		// dd($form);
+
 
 		$equipo = Equipo::find($form['equipo']);
+        //dd($equipo);
+       // dd($equipo);
 
 		$cm_ca = $equipo['costo_mantenimiento'] * 100 / $equipo['costo_adquisicion'];
 		$cm_cc = $equipo['costo_mantenimiento'] * 100 / $equipo['costo_nuevo'];
@@ -340,8 +327,14 @@ class EquiposController extends Controller {
 			$equipo->variable()->attach([
 				18 => ['valor' => $form['Aceptabilidad_Clínica']],
 				19 => ['valor' => $form['Función_Clínica']],
-				20 => ['valor' => $form['Contribución_al_Servicio']],
-				16 => ['valor' => $form['Nivel_de_Riesgo_INVIMA']],
+				22 => ['valor' => $form['Facilidad_de_uso_del_equipo']],
+				23 => ['valor' => $form['Contribución_del_equipo_al_servicio']],
+                7 => ['valor' => $form['Eventos_adversos_reportados']],
+				11 => ['valor' => $form['Fecha_finalización_registro_INVIMA_']],
+				12 => ['valor' => $form['Factor_ético']],
+				13 => ['valor' => $form['Factor_medio_ambiental']],
+                16 => ['valor' => $form['Clasificación_nivel_de_riesgo_del_equipo']],
+                20 => ['valor' => $form['Prohibición_del_equipo_localmente']],
 				10 => ['valor' => $cm_cc],
 				9 => ['valor' => $cm_ca],
 			]
@@ -349,14 +342,20 @@ class EquiposController extends Controller {
 		} else {
 			$equipo->variable()->updateExistingPivot(18, ['valor' => $form['Aceptabilidad_Clínica']]);
 			$equipo->variable()->updateExistingPivot(19, ['valor' => $form['Función_Clínica']]);
-			$equipo->variable()->updateExistingPivot(20, ['valor' => $form['Contribución_al_Servicio']]);
-			$equipo->variable()->updateExistingPivot(16, ['valor' => $form['Nivel_de_Riesgo_INVIMA']]);
+			$equipo->variable()->updateExistingPivot(22, ['valor' => $form['Facilidad_de_uso_del_equipo']]);
+			$equipo->variable()->updateExistingPivot(23, ['valor' => $form['Contribución_del_equipo_al_servicio']]);
+            $equipo->variable()->updateExistingPivot(7, ['valor' => $form['Eventos_adversos_reportados']]);
+            $equipo->variable()->updateExistingPivot(11, ['valor' => $form['Fecha_finalización_registro_INVIMA_']]);
+			$equipo->variable()->updateExistingPivot(12, ['valor' => $form['Factor_ético']]);
+			$equipo->variable()->updateExistingPivot(13, ['valor' => $form['Factor_medio_ambiental']]);
+			$equipo->variable()->updateExistingPivot(16, ['valor' => $form['Clasificación_nivel_de_riesgo_del_equipo']]);
+            $equipo->variable()->updateExistingPivot(20, ['valor' => $form['Prohibición_del_equipo_localmente']]);
 			$equipo->variable()->updateExistingPivot(10, ['valor' => $cm_cc]);
 			$equipo->variable()->updateExistingPivot(9, ['valor' => $cm_ca]);
 
 		}
 		$equipo->clinicos = 1;
-
+        // dd($equipo->variable());
 		$equipo->save();
 		return redirect('/showEquipos');
 	}
@@ -373,8 +372,11 @@ class EquiposController extends Controller {
 			$pesoVariable = $variable->peso;
 			$pesoSub = $variable->subcategoria->peso;
 			$pesoCat = $variable->subcategoria->categoria->peso;
-			$acumulado = $nivel * $pesoVariable * $pesoSub * $pesoCat;
-			$score = $score + $acumulado;
+            if (is_numeric($nivel)) {
+                $acumulado = $nivel * $pesoVariable * $pesoSub * $pesoCat;
+			    $score = $score + $acumulado;
+            }
+
 		}
 		$equipo->score = $score;
 

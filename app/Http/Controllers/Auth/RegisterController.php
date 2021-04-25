@@ -58,7 +58,6 @@ class RegisterController extends Controller {
 	 * @return \App\User
 	 */
 	protected function create(array $data) {
-		//dd($data);
 		$user = User::create([
 			'name' => $data['name'],
 			'email' => $data['email'],
@@ -68,6 +67,7 @@ class RegisterController extends Controller {
 		$user
 			->roles()
 			->attach($data['rol']);
+
 		return $user;
 	}
 
