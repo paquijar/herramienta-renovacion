@@ -16,7 +16,9 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="nivel">Nivel*</label>
+
                             <input type="text" class="form-control" id="nivel" name="nivel" value="{{ $diccionario_variable->nivel }}">
+
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
