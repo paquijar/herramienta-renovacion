@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Serie</label>
-                            <input type="number" class="form-control" id="serie" placeholder="" name="serie">
+                            <input type="text" class="form-control" id="serie" placeholder="" name="serie">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Ubicación*</label>
@@ -39,7 +39,7 @@
                             <input type="text" class="form-control" id="edad" placeholder="" name="edad" required>
                         </div> -->
                         <div class="col-md-6 mb-3">
-                            <label for="firstName">Vida Útil del equipo (años)*</label>
+                            <label for="firstName">Herramienta Renovación del equipo (años)*</label>
                             <input type="number" class="form-control" id="vida_util" placeholder="" name="vida_util" required>
                         </div>
 
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="reparaciones">Mantenimientos correctivos último año*</label>
+                            <label for="reparaciones">Mantenimientos correctivos*</label>
                             <input type="number" class="form-control" id="nro_reparaciones" placeholder="" name="nro_reparaciones" required>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -90,7 +90,7 @@
 
                         <div class="form-group row ">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-info">
                                     {{ 'Siguiente' }}
                                 </button>
                             </div>

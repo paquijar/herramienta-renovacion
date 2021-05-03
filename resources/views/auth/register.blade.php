@@ -1,11 +1,13 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<div class="row">
+    <div class="container ">
+        <div class="row ">
+            <div class="col-md-8">
+                <div class="text-center">
+                    <h3>Crear Usuario</h3>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -52,16 +54,12 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="display:none">
                             <label for="rol" class="col-md-4 col-form-label text-md-right">{{ __('Rol') }}</label>
 
                             <div class="col-md-6">
                                 <select name="rol" class="form-control" required>
-                                    @foreach ($param[0] as $rol)
-                                    @if($rol->nombre != "superadmin")
-                                    <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
-                                    @endif
-                                    @endforeach
+                                    <option selected value="12"></option>
                                 </select>
 
                             </div>
@@ -107,7 +105,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-info">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -117,5 +115,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

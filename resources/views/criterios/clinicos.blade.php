@@ -12,40 +12,39 @@
                         @for ($i = 0; $i < count($opciones)-2; $i++) <div class="col-md-6 mb-3">
                             <label title="{{$opciones[$i]->info}}" for="ult_tec">{{ $opciones[$i]->variable }}</label>
                             @if(empty($opciones[$i][0]))
-                                @if(is_a($opciones[count($opciones)-1], 'Illuminate\Database\Eloquent\Collection'))
-                                    @if($opciones[$i]->id==11)
-                                     <input type="date" name="{{ $opciones[$i]->variable }}" value="{{ $opciones[count($opciones)-1][$i]->pivot->valor }}" class="form-control" required>
-                                    @else
-                                    <input type="number" name="{{ $opciones[$i]->variable }}" value="{{ $opciones[count($opciones)-1][$i]->pivot->valor }}" class="form-control" required>
-                                    @endif
-                                @else
-                                    @if($opciones[$i]->id==11)
-                                    <input type="date" name="{{ $opciones[$i]->variable }}" class="form-control" required>
-                                    @else
-                                    <input type="number" name="{{ $opciones[$i]->variable }}" class="form-control" required>
-                                    @endif
-                                @endif
+                            @if(is_a($opciones[count($opciones)-1], 'Illuminate\Database\Eloquent\Collection'))
+                            @if($opciones[$i]->id==11)
+                            <input type="date" name="{{ $opciones[$i]->variable }}" value="{{ $opciones[count($opciones)-1][$i]->pivot->valor }}" class="form-control" required>
                             @else
-                                <select name="{{ $opciones[$i]->variable }}" class="form-control" required>
-                                    @foreach ($opciones[$i] as $opcion)
-                                        <option value="{{ $opcion->nivel }}"
-                                        @if($opciones[count($opciones)-2]->tecnicos)
-                                            @if(is_a($opciones[count($opciones)-1], 'Illuminate\Database\Eloquent\Collection'))
-                                                @if($opciones[count($opciones)-1][$i]->pivot->valor== strval($opcion->nivel))
-                                                    selected
-                                                @endif
-                                            @endif
-                                        @endif
-                                        >{{ $opcion->nombre }}</option>
-                                    @endforeach
-                                </select>
+                            <input type="number" name="{{ $opciones[$i]->variable }}" value="{{ $opciones[count($opciones)-1][$i]->pivot->valor }}" class="form-control" required>
+                            @endif
+                            @else
+                            @if($opciones[$i]->id==11)
+                            <input type="date" name="{{ $opciones[$i]->variable }}" class="form-control" required>
+                            @else
+                            <input type="number" name="{{ $opciones[$i]->variable }}" class="form-control" required>
+                            @endif
+                            @endif
+                            @else
+                            <select name="{{ $opciones[$i]->variable }}" class="form-control" required>
+                                @foreach ($opciones[$i] as $opcion)
+                                <option value="{{ $opcion->nivel }}" @if($opciones[count($opciones)-2]->tecnicos)
+                                    @if(is_a($opciones[count($opciones)-1], 'Illuminate\Database\Eloquent\Collection'))
+                                    @if($opciones[count($opciones)-1][$i]->pivot->valor== strval($opcion->nivel))
+                                    selected
+                                    @endif
+                                    @endif
+                                    @endif
+                                    >{{ $opcion->nombre }}</option>
+                                @endforeach
+                            </select>
                             @endif
                 </div>
                 @endfor
 
                 <div class="form-group row mb-0">
                     <div class="col-md-8 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-info">
                             {{ 'Guardar' }}
                         </button>
                     </div>
