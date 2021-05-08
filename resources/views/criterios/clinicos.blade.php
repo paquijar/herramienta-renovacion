@@ -3,26 +3,27 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
-                <div class="card-header">Criterios de Usuario Final</div>
+                <div class="card-header text-center">Criterios de Usuario Final</div>
                 <div class="card-body">
                     <form method="POST" action="/clinicos">
                         {{ csrf_field() }}
-                        @for ($i = 0; $i < count($opciones)-2; $i++) <div class="col-md-6 mb-3">
-                            <label title="{{$opciones[$i]->info}}" for="ult_tec">{{ $opciones[$i]->variable }}</label>
+                        @for ($i = 0; $i < count($opciones)-2; $i++) <div class="col-8 mx-auto">
+                            <label style="margin-top:30px" for="ult_tec">{{ $opciones[$i]->variable }}</label>
+                            <span style="cursor:default" data-toggle="tooltip" data-placement="top" title="{{$opciones[$i]->info}}" class="material-icons">info </span>
                             @if(empty($opciones[$i][0]))
                             @if(is_a($opciones[count($opciones)-1], 'Illuminate\Database\Eloquent\Collection'))
                             @if($opciones[$i]->id==11)
                             <input type="date" name="{{ $opciones[$i]->variable }}" value="{{ $opciones[count($opciones)-1][$i]->pivot->valor }}" class="form-control" required>
                             @else
-                            <input type="number" name="{{ $opciones[$i]->variable }}" value="{{ $opciones[count($opciones)-1][$i]->pivot->valor }}" class="form-control" required>
+                            <input type="number" min="0" name="{{ $opciones[$i]->variable }}" value="{{ $opciones[count($opciones)-1][$i]->pivot->valor }}" class="form-control" required>
                             @endif
                             @else
                             @if($opciones[$i]->id==11)
-                            <input type="date" name="{{ $opciones[$i]->variable }}" class="form-control" required>
+                            <input type="date" name="{{ strtotime($opciones[$i]->variable) }}" class="form-control" required>
                             @else
-                            <input type="number" name="{{ $opciones[$i]->variable }}" class="form-control" required>
+                            <input type="number" min="0" name="{{ $opciones[$i]->variable }}" class="form-control" required>
                             @endif
                             @endif
                             @else
@@ -41,9 +42,9 @@
                             @endif
                 </div>
                 @endfor
-
+                <br></br>
                 <div class="form-group row mb-0">
-                    <div class="col-md-8 offset-md-4">
+                    <div class="col text-center">
                         <button type="submit" class="btn btn-info">
                             {{ 'Guardar' }}
                         </button>

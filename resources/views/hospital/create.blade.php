@@ -4,9 +4,12 @@
 <div class="row">
     <div class="container ">
         <div class="row ">
-            <div class="col-md-8">
+            <div class="col-md-8" style="color:rgba(255, 255, 255, 0.8);">
+                <br></br>
                 <div class="text-center">
-                    <h3>Crear Institución de salud</h3>
+                    <strong>
+                        Crear Institución de salud
+                    </strong></h3>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="/hospital">
@@ -39,8 +42,9 @@
                                 <input type="number" class="form-control" id="nivel" name="nivel" required>
                             </div>
                         </div>
+                        <br></br>
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col align-self-center text-center">
                                 <button type="submit" class="btn btn-info">
                                     {{ 'Siguiente' }}
                                 </button>

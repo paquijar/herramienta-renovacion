@@ -4,8 +4,11 @@
     <div class="container ">
         <div class="row ">
             <div class="col-md-8">
+                <br></br>
                 <div>
-                    <h3>Opciones</h3>
+                    <h3><strong>
+                            Opciones
+                        </strong></h3>
                 </div>
                 <div class="table-container">
                     <table id="mytable" class="table table-bordred table-striped">
@@ -26,7 +29,9 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="8">Valor dado por el usuario</td>
+                                <td colspan="8">
+                                    <h3> VALOR DADO POR EL USUARIO</h3>
+                                </td>
                             </tr>
                             @endif
                         </tbody>

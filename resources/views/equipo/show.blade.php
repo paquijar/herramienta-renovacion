@@ -11,6 +11,9 @@
                         <li class="card-body">Ubicación: {{ $equipo->ubicacion }}</li>
                         <li class="card-body">Recomendación: {{ $equipo->recomendacion }}</li>
                         <li class="card-body">Edad: {{ $equipo->edad }}</li>
+                        @if ($score==4)
+                        <li class="card-body">Por normatividad es necesario que el equipo que se encuentra operando tenga un contrato de mantenimiento activo</li>
+                        @endif
                     </ul>
 
                 </div>

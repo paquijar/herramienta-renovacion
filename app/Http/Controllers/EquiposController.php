@@ -95,7 +95,18 @@ class EquiposController extends Controller
                 //dd($equipo);
             }
         }
-        return view('equipo.show', compact('equipo'));
+        $variables = $equipo->variable;
+        $score = 0;
+        foreach ($variables as $variable) {
+            if ($variable->id === 1) {
+                if ($variable->pivot->valor === "4") {
+                    $score = 4;
+                    break;
+                }
+            }
+        }
+        // dd($score);
+        return view('equipo.show', compact('equipo', 'score'));
         ##dd($equipos);
     }
 
@@ -110,6 +121,18 @@ class EquiposController extends Controller
         $hospital = auth()->user()->hospital;
 
         $equipos = $hospital->equipos;
+        // dd($equipos);
+
+        /*       $variables = $cadaEquipo->variable;
+        $score = 0;
+        foreach ($variables as $variable) {
+            if ($variable->id === 1) {
+                if ($variable->pivot->valor === "4") {
+                    $score = 4;
+                    break;
+                }
+            }
+        } */
 
         if ($request->user()->authorizeRoles('user')) {
             return view('criterios/creados')->with('equipos', $equipos);
@@ -332,6 +355,7 @@ class EquiposController extends Controller
             $equipo->variable()->updateExistingPivot(21, ['valor' => $form['Disponibilidad_de_equipos_de_respaldo']]);
         }
         $equipo->tecnicos = 1;
+        $equipo->score = null;
         //dd($equipo);
         $equipo->save();
         return redirect('/showEquipos');
@@ -414,7 +438,8 @@ class EquiposController extends Controller
             $equipo->variable()->updateExistingPivot(9, ['valor' => $cm_ca]);
         }
         $equipo->clinicos = 1;
-        // dd($equipo->variable());
+        $equipo->score = null;
+        // dd($equipo->score);
         $equipo->save();
         return redirect('/showEquipos');
     }
@@ -427,6 +452,12 @@ class EquiposController extends Controller
         $variables = $equipo->variable;
         $score = 0;
         foreach ($variables as $variable) {
+            if ($variable->id === 7 || $variable->id === 12 || $variable->id === 20) {
+                if ($variable->pivot->valor === "4") {
+                    $score = 4;
+                    break;
+                }
+            }
             $nivel = $variable->pivot->valor;
             //dd($variable->subcategoria->categoria->peso);
             $pesoVariable = $variable->peso;
@@ -437,6 +468,7 @@ class EquiposController extends Controller
                 $score = $score + $acumulado;
             }
         }
+
         $equipo->score = $score;
 
         $equipo->save();
@@ -470,6 +502,16 @@ class EquiposController extends Controller
                     $equipo->recomendacion = $propuesta->recomendacion;
                     //dd($equipo);
                     array_push($equiposFinal, $equipo);
+                }
+            }
+            $variables = $equipo->variable;
+            $score = 0;
+            foreach ($variables as $variable) {
+                if ($variable->id === 1) {
+                    if ($variable->pivot->valor === "4") {
+                        $score = 4;
+                        $equipo->score = $score;
+                    }
                 }
             }
         }

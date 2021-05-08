@@ -112,6 +112,16 @@ p {
     margin-bottom: 1rem;
 }
 
+.navbar {
+    height: 60px !important;
+    /*i assume your navbar size 100px*/
+}
+
+.card-header {
+    font-size: x-large;
+    font-weight: bold;
+}
+
 abbr[title], abbr[data-original-title] {
     text-decoration: underline;
     text-decoration: underline dotted;
