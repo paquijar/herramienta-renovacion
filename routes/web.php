@@ -35,6 +35,8 @@ Route::get('/showCalculados', 'EquiposController@showCalculados');
 Route::get('/showSin', 'EquiposController@showSin');
 Route::get('/info', 'EquiposController@create');
 Route::get('/score/{equipo}', 'EquiposController@calcularScore');
+Route::get('equipo/{equipo}/edit', 'EquiposController@edit');
+Route::post('equipo/{equipo}/update', 'EquiposController@update');
 
 //Rutas para admin
 

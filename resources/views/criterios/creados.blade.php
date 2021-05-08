@@ -24,9 +24,9 @@
                         @if($equipo->clinicos==0)
                         <p style="color:green;" class="card-title">Faltan los criterios del usuario final</p>
                         @endif
-
-                        <a href="/createTecnicos/{{ $equipo->id }}" class="btn btn-info">Criterios Técnicos</a>
-                        <a href="/createClinicos/{{ $equipo->id }}" class="btn btn-info">Criterios Usuario Final</a>
+                        <a class="btn btn-info" href="/equipo/{{ $equipo->id }}/edit">Editar equipo</a>
+                        <a href="/createTecnicos/{{ $equipo->id }}" class="btn btn-info">Criterios técnicos</a>
+                        <a href="/createClinicos/{{ $equipo->id }}" class="btn btn-info">Criterios usuario final</a>
                         @if($equipo->tecnicos==1 && $equipo->clinicos==1)
                         <a href="/score/{{ $equipo->id }}" class="btn btn-info">Calcular</a>
                         @endif

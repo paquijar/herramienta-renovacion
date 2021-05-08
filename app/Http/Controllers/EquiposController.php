@@ -50,25 +50,6 @@ class EquiposController extends Controller
             return view("homeSuperadmin");
         }
         $form = request()->all();
-        // dd($form);
-        //dd(auth()->user()->hospital->id);
-        /* 		$this->validate(request(), [
-
-			'nombre' => 'required',
-			'edad_del_equipo' => 'required',
-			'vida_util' => 'required',
-			'costo_adquisicion' => 'required',
-			'costo_nuevo' => 'required',
-			'costo_mantenimiento' => 'required',
-			'tiempo_parado' => 'required',
-			'tiempo_operacion' => 'required',
-			'nro_reparaciones' => 'required',
-			'años_reparaciones' => 'required',
-
-		]); */
-        //dd($request);
-        //$form = request()->all();
-        //dd($form);
         $equipo = new Equipo($form);
         //dd($equipo);
         $equipo->hospital_id = auth()->user()->hospital->id;
@@ -80,6 +61,38 @@ class EquiposController extends Controller
             return redirect('/showEquipos');
         }
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Propuesta  $propuesta
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        if ($request->user()->authorizeRoles('admin')) {
+            return view("homeAdmin");
+        }
+        if ($request->user()->authorizeRoles('superadmin')) {
+            return view("homeSuperadmin");
+        }
+        $equipo = Equipo::find($id);
+        // dd($equipo);
+        return view('equipo.edit', compact('equipo'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        if ($request->user()->authorizeRoles('admin')) {
+            return view("homeAdmin");
+        }
+        if ($request->user()->authorizeRoles('superadmin')) {
+            return view("homeSuperadmin");
+        }
+        Equipo::find($id)->update($request->all());
+        return redirect('/showEquipos');
+    }
+
     public function showEquipo($id)
     {
         $equipo = Equipo::find($id);
@@ -260,6 +273,7 @@ class EquiposController extends Controller
             return view('criterios/clinicos')->with('opciones', $opciones);
         }
     }
+
 
     public function storeTecnicos(Request $request)
     {
@@ -528,28 +542,8 @@ class EquiposController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Equipo  $equipo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Equipo $equipo)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Equipo  $equipo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Equipo $equipo)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
