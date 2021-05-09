@@ -7,9 +7,13 @@
             <div class="col-md-8" style="color:rgba(255, 255, 255, 0.8);">
                 <br></br>
                 <div class="text-center">
-                    <strong>
-                        Crear Institución de salud
-                    </strong></h3>
+
+                    <h3>
+                        <strong>
+                            Crear Institución de salud
+                        </strong>
+                    </h3>
+
                 </div>
                 <div class="card-body">
                     <form method="POST" action="/hospital">

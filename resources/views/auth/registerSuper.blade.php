@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="hospital_id" class="col-md-5 col-form-label text-md-right">{{ __('Hospital') }}</label>
+                            <label for="hospital_id" class="col-md-5 col-form-label text-md-right">{{ __('Institución de salud') }}</label>
 
                             <div class="col-md-5">
                                 <select name="hospital_id" class="form-control" required>
