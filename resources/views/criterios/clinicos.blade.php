@@ -21,7 +21,7 @@
                             @endif
                             @else
                             @if($opciones[$i]->id==11)
-                            <input type="date" name="{{ strtotime($opciones[$i]->variable) }}" class="form-control" required>
+                            <input type="date" name="{{$opciones[$i]->variable}}" class="form-control" required>
                             @else
                             <input type="number" min="0" name="{{ $opciones[$i]->variable }}" class="form-control" required>
                             @endif

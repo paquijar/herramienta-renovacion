@@ -419,7 +419,7 @@ class EquiposController extends Controller
         } else {
             $cm_cc = 4;
         }
-        //dd($form);
+        // dd($form);
         if (!$equipo->clinicos) {
             $equipo->variable()->attach(
                 [
