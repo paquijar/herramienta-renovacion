@@ -511,7 +511,7 @@ class EquiposController extends Controller
             foreach ($propuestas as $propuesta) {
                 // dd($propuesta->minimo);
                 // dd($equipo->score);
-                if ($propuesta->minimo < $equipo->score && $propuesta->maximo > $equipo->score) {
+                if ($propuesta->minimo <= $equipo->score && $propuesta->maximo > $equipo->score) {
                     //dd('aaa');
                     $equipo->recomendacion = $propuesta->recomendacion;
                     //dd($equipo);
